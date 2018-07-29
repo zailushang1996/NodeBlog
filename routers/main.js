@@ -1,7 +1,9 @@
+/**
+ * Created by Administrator on 2017/10/24.
+ */
 var express = require("express");
 //var swig = require("swig");
 var router= express.Router();
-
 var Category = require("../models/category");
 var Content = require("../models/content");
 
@@ -21,8 +23,8 @@ router.use(function (req, res, next) {
 });
 
 //渲染首页
-router.get('/',function (req, res) {
-    console.log("get request");
+router.get("/", function(req, res) {
+
     data.category = req.query.category ||"";
     data.count = 0;
     data.page = Number(req.query.page || 1);
@@ -56,7 +58,6 @@ router.get('/',function (req, res) {
         res.render('main/index', data);
     })
 });
-
 //进入详细阅读部分
 
 router.get("/view",function(req,res){
@@ -70,5 +71,5 @@ router.get("/view",function(req,res){
     });
 });
 
-module.exports = router;
 
+module.exports = router;

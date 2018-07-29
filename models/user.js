@@ -1,5 +1,8 @@
-var mongoose = require('mongoose');
+/**
+ * Created by Administrator on 2017/10/24.
+ */
+var mongoose = require("mongoose");
 
-var userSchema = require('../schemas/users');
+var userschama = require("../schemas/users");
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User",userschama);

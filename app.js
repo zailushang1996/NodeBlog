@@ -1,13 +1,17 @@
-var express = require('express');
-var swig = require('swig');
-var User = require('./models/user');
+/**
+ * Created by Administrator on 2017/10/24.
+ */
+    //加载express模块
+var express = require("express");
+//加载swig模块
+var swig = require("swig");
+var User = require("./models/user");
 //加载mongoose数据库，这个中间件是nodejs与mongoDB数据库的桥梁
-var mongoose = require('mongoose');
-
+var mongoose = require("mongoose");
 var Cookies = require('cookies');
-
-//创建一个服务器，相当于httpcreateServer
+//创建一个新的服务器，相当于httpcreateServer
 var app = express();
+
 //静态文件资源托管的，js css img等
 app.use("/public",express.static( __dirname+"/public"));
 
@@ -28,27 +32,46 @@ swig.setDefaults({cache : false});
 var bodyparser = require("body-parser");
 app.use(bodyparser.urlencoded({extended:true}));
 
-app.use(function (req, res, next) {
+
+
+app.use( function(req, res, next) {
     req.cookies = new Cookies(req, res);
+
     req.userInfo = {};
-    if (req.cookies.get('userInfo')) {
+    if(req.cookies.get('userInfo')){
         var str1 = req.cookies.get('userInfo');
-        req.userInfo = JSON.parse(str1)
-        User.findById(req.userInfo._id).then(function (userInfoData) {
-            req.userInfo.isAdmin = Boolean(userInfoData.isAdmin);
+        req.userInfo=JSON.parse(str1);
+        User.findById(req.userInfo._id).then(function(userInfodata){
+            req.userInfo.isadmin = Boolean(userInfodata.isadmin);
         });
     }
     next();
-});
+
+} );
+
 
 //分模块开发，便于管理，分为前台展示模块，后台管理模块及逻辑接口模块
-// app.use("/admin" ,require("./routers/admin"));
+app.use("/admin" ,require("./routers/admin"));
 app.use("/" ,require("./routers/main"));
-// app.use("/api" ,require("./routers/api"));
+app.use("/api" ,require("./routers/api"));
+
+
+
+
+
+
+//mongoose.connect("mongodb://localhost:27017/myBlog",function(err){
+//    if (err){
+//        console.log("数据库链接失败！");
+//    }else {
+//        console.log("数据库链接成功！");
+//        app.listen(8888);
+//    }
+//});
 
 mongoose.connect("mongodb://localhost:27017/myBlog");
 var db = mongoose.connection;
-db.once("open",function () {
+db.once("open", function () {
     console.log("Mongo Connected");
     app.listen(8888);
 });

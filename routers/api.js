@@ -1,7 +1,11 @@
+/**
+ * Created by Administrator on 2017/10/24.
+ */
+
 var express = require("express");
 var User = require("../models/user");
 var Content = require("../models/content");
-var router = express.Router();
+var router= express.Router();
 
 //统一返回给前端的数据格式
 var resdata;
@@ -13,7 +17,8 @@ router.use(function(req,res,next){
     next();
 });
 
-router.post("/user/register",function (req, res) {
+
+router.post("/user/register",function(req ,res ){
     var username = req.body.username;
     var password = req.body.password;
     var repassword = req.body.repassword;
@@ -37,7 +42,6 @@ router.post("/user/register",function (req, res) {
         res.json(resdata);
         return;
     }
-
     User.findOne({
         username:username
     },function(err,userinfo){
@@ -59,6 +63,7 @@ router.post("/user/register",function (req, res) {
             res.json(resdata);
         }
     });
+
 });
 
 router.post("/user/login",function(req ,res ){
@@ -107,6 +112,7 @@ router.get("/user/logout",function(req ,res ){
     res.message="退出成功！";
     res.json(resdata);
 });
+
 
 router.get('/pinglun', function(req, res) {
     var contentid = req.query.contentid || '';

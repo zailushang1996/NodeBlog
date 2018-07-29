@@ -1,10 +1,16 @@
-var mongoose = require('mongoose');
+/**
+ * Created by Administrator on 2017/10/24.
+ */
+var mongoose = require("mongoose");
+
+
 
 module.exports = new mongoose.Schema({
-    username:String,
+    username: String,
     password: String,
-    isAdmin:{
+    isadmin:{
         type:Boolean,
         default:false
     }
 });
+
