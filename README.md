@@ -85,3 +85,7 @@ app.listen(1337);
 console.log('Application Started on http://localhost:1337/');
 ```
 html部分代码查看GitHub
+
+##mongoose对象模型工具
+基础使用博客
+https://www.cnblogs.com/xiaohuochai/p/7215067.html?utm_source=itdadao&utm_medium=referral
